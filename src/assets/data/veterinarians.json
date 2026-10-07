@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Dra. Laura Méndez",
+    "specialty": "Medicina General y Nutrición",
+    "photo": "assets/images/veterinarians/laura-mendez.jpg",
+    "credentials": "MVZ, Universidad Nacional Autónoma de México",
+    "experienceYears": 9
+  },
+  {
+    "id": 2,
+    "name": "Dr. Andrés Ríos",
+    "specialty": "Cirugía y Oncología",
+    "photo": "assets/images/veterinarians/andres-rios.jpg",
+    "credentials": "MVZ, certificación en cirugía de tejidos blandos",
+    "experienceYears": 12
+  },
+  {
+    "id": 3,
+    "name": "Dra. Camila Torres",
+    "specialty": "Dermatología y Nutrición",
+    "photo": "assets/images/veterinarians/camila-torres.jpg",
+    "credentials": "MVZ, diplomado en dermatología veterinaria",
+    "experienceYears": 7
+  },
+  {
+    "id": 4,
+    "name": "Dr. Diego Salas",
+    "specialty": "Oftalmología y Comportamiento",
+    "photo": "assets/images/veterinarians/diego-salas.jpg",
+    "credentials": "MVZ, posgrado en oftalmología veterinaria",
+    "experienceYears": 8
+  },
+  {
+    "id": 5,
+    "name": "Dra. Sofía Herrera",
+    "specialty": "Cardiología y Medicina General",
+    "photo": "assets/images/veterinarians/sofia-herrera.jpg",
+    "credentials": "MVZ, certificación en cardiología veterinaria",
+    "experienceYears": 10
+  }
+]

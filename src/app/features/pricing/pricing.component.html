@@ -1,0 +1,93 @@
+<section class="pricing-page" aria-labelledby="page-title">
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow"><span></span> CLARIDAD PARA DECIDIR CON CALMA</p>
+      <h1 id="page-title">Precios <em>y tarifas</em></h1>
+      <p>Consulta nuestros precios referenciales y encuentra la atención que mejor se adapta a tu mascota.</p>
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a routerLink="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Precios</span>
+      </nav>
+    </div>
+    <div class="hero-decoration" aria-hidden="true"><span></span><span></span><b>$</b></div>
+  </header>
+
+  <div class="pricing-content">
+    <div class="pricing-heading">
+      <div>
+        <p class="eyebrow"><span></span> INFORMACIÓN REFERENCIAL</p>
+        <h2>Una guía para planificar</h2>
+      </div>
+      <p class="price-note"><span aria-hidden="true">i</span> Los precios son referenciales y pueden variar según la evaluación de cada mascota.</p>
+    </div>
+
+    @if (isLoading()) {
+      <div class="page-status" role="status" aria-live="polite">
+        <span class="loading-indicator" aria-hidden="true"></span>
+        <p>Cargando precios...</p>
+      </div>
+    } @else if (hasLoadError()) {
+      <div class="page-status" role="alert">
+        <p>No pudimos cargar la lista de precios. Comprueba tu conexión e inténtalo de nuevo.</p>
+        <button class="text-button" type="button" (click)="loadPricing()">Volver a intentar <span aria-hidden="true">&#8594;</span></button>
+      </div>
+    } @else {
+      <div class="filter-bar" role="group" aria-label="Filtrar precios por categoría">
+        @for (category of categories(); track category.value) {
+          <button
+            type="button"
+            class="filter-button"
+            [class.filter-button--selected]="selectedCategory() === category.value"
+            [attr.aria-pressed]="selectedCategory() === category.value"
+            (click)="selectCategory(category.value)">
+            {{ category.label }}
+          </button>
+        }
+      </div>
+
+      @if (filteredEntries().length > 0) {
+        <div class="price-list" aria-live="polite">
+          @for (entry of filteredEntries(); track entry.id) {
+            <article class="price-row">
+              <div class="price-service">
+                <span class="service-mark" aria-hidden="true">{{ entry.id < 10 ? '0' + entry.id : entry.id }}</span>
+                <div>
+                  <p class="category-label">{{ entry.serviceCategory ? categoryLabel(entry.serviceCategory) : entry.category }}</p>
+                  <h3>{{ entry.service }}</h3>
+                </div>
+              </div>
+              <div class="price-value">
+                <span class="row-label">Precio</span>
+                <strong>{{ entry.price | currency:entry.currency:'symbol':'1.0-0' }} <small>{{ entry.currency }}</small></strong>
+              </div>
+              <div class="duration-value">
+                <span class="row-label">Duración</span>
+                <strong>{{ durationLabel(entry.durationMinutes) }}</strong>
+              </div>
+              <div class="includes-value">
+                <span class="row-label">Incluye</span>
+                <ul>
+                  @for (item of entry.includes; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              </div>
+            </article>
+          }
+        </div>
+        <p class="results-count" aria-live="polite">{{ filteredEntries().length }} {{ filteredEntries().length === 1 ? 'tarifa' : 'tarifas' }} mostradas</p>
+      } @else {
+        <div class="page-status" role="status"><p>No hay tarifas en esta categoría por el momento.</p></div>
+      }
+    }
+  </div>
+
+  <section class="pricing-cta" aria-labelledby="cta-title">
+    <span class="cta-mark" aria-hidden="true">&#10022;</span>
+    <div>
+      <p class="eyebrow">CADA MASCOTA ES DIFERENTE</p>
+      <h2 id="cta-title">¿Tienes dudas sobre un servicio?</h2>
+      <p>Escríbenos para recibir orientación y conocer los detalles de atención.</p>
+    </div>
+    <a routerLink="/contacto">Hablar con PetCare <span aria-hidden="true">&#8594;</span></a>
+  </section>
+</section>

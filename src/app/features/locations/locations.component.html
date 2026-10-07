@@ -1,0 +1,118 @@
+<section class="locations-page" aria-labelledby="page-title">
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow"><span></span> CERCA DE TI Y DE QUIEN MÁS QUIERES</p>
+      <h1 id="page-title">Encuentra tu <em>PetCare</em></h1>
+      <p>Estamos para acompañar la salud de tu mascota. Encuentra la sede que te quede mejor y conoce sus horarios.</p>
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a routerLink="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Ubicaciones</span>
+      </nav>
+    </div>
+    <div class="hero-decoration" aria-hidden="true">
+      <span class="decoration-ring"></span>
+      <svg viewBox="0 0 100 120" fill="none"><path d="M50 112S12 72 12 43a38 38 0 1 1 76 0c0 29-38 69-38 69Z" fill="currentColor"/><circle cx="50" cy="43" r="15" fill="#315844"/><path d="M50 32c-5 0-9 6-9 11s4 8 9 8 9-3 9-8-4-11-9-11Zm-16 13c-3 0-5 3-5 6s2 5 5 5 5-2 5-5-2-6-5-6Zm32 0c-3 0-5 3-5 6s2 5 5 5 5-2 5-5-2-6-5-6Z" fill="#E9A263"/></svg>
+    </div>
+  </header>
+
+  <div class="locations-content">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span></span> NUESTRAS SEDES</p>
+        <h2>Un espacio para cuidarles</h2>
+      </div>
+      @if (!isLoading() && !hasLoadError()) {
+        <p class="location-count" aria-live="polite">{{ locations().length }} {{ locations().length === 1 ? 'sede disponible' : 'sedes disponibles' }}</p>
+      }
+    </div>
+
+    @if (isLoading()) {
+      <div class="page-status" role="status" aria-live="polite">
+        <span class="loading-indicator" aria-hidden="true"></span>
+        <p>Cargando ubicaciones...</p>
+      </div>
+    } @else if (hasLoadError()) {
+      <div class="page-status" role="alert">
+        <p>No pudimos cargar las ubicaciones. Comprueba tu conexión e inténtalo de nuevo.</p>
+        <button class="text-button" type="button" (click)="loadLocations()">Volver a intentar <span aria-hidden="true">&#8594;</span></button>
+      </div>
+    } @else {
+      <div class="location-grid">
+        @for (location of locations(); track location.id) {
+          <article class="location-card">
+            <div class="location-visual" aria-hidden="true">
+              @if (availableImages().has(location.id) && !failedImages().has(location.id)) {
+                <img [src]="location.image" alt="" loading="lazy" (error)="markImageAsFailed(location.id)">
+              } @else {
+                <div class="location-placeholder">
+                  <span class="placeholder-sun"></span>
+                  <span class="placeholder-building"><i></i><i></i><i></i><b></b></span>
+                  <span class="placeholder-plant plant-one"></span>
+                  <span class="placeholder-plant plant-two"></span>
+                  <span class="placeholder-caption">PetCare · {{ location.city }}</span>
+                </div>
+              }
+            </div>
+            <div class="location-body">
+              <div class="location-title-row">
+                <div>
+                  <p class="city-label">{{ location.city }}</p>
+                  <h3>{{ location.name }}</h3>
+                </div>
+                <span class="location-index" aria-hidden="true">{{ location.id < 10 ? '0' + location.id : location.id }}</span>
+              </div>
+              <address>{{ location.address }}</address>
+              <div class="contact-list">
+                <a [href]="'tel:' + location.phone.replaceAll(' ', '')" [attr.aria-label]="'Llamar a ' + location.name + ' al ' + location.phone">
+                  <span class="contact-icon" aria-hidden="true">&#9742;</span>{{ location.phone }}
+                </a>
+                <a [href]="'mailto:' + location.email" [attr.aria-label]="'Enviar correo a ' + location.name">
+                  <span class="contact-icon" aria-hidden="true">&#9993;</span>{{ location.email }}
+                </a>
+              </div>
+              <div class="schedule" aria-label="Horarios de atención">
+                <h4>Horarios de atención</h4>
+                @for (schedule of location.schedule; track schedule.days) {
+                  <p><span>{{ schedule.days }}</span><strong>{{ schedule.hours }}</strong></p>
+                }
+              </div>
+              @if (isValidMapUrl(location.mapUrl)) {
+                <a class="directions-button" [href]="location.mapUrl" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Cómo llegar a ' + location.name + ' (abre en una pestaña nueva)'">
+                  Cómo llegar <span aria-hidden="true">&#8599;</span>
+                </a>
+              }
+            </div>
+          </article>
+        }
+      </div>
+
+      @if (locations().length === 0) {
+        <div class="page-status" role="status"><p>Pronto encontrarás aquí nuestras sedes.</p></div>
+      }
+    }
+  </div>
+
+  <section class="map-section" aria-labelledby="map-title">
+    <div class="map-heading">
+      <p class="eyebrow"><span></span> CERCA DE TU RUTA</p>
+      <h2 id="map-title">Nuestras sedes, de un vistazo</h2>
+      <p>Vista esquemática de nuestras ubicaciones. Selecciona una sede para consultar las indicaciones.</p>
+    </div>
+    <div class="schematic-map" role="img" aria-label="Mapa esquemático que representa las sucursales PetCare disponibles">
+      <span class="map-road road-horizontal road-one" aria-hidden="true"></span>
+      <span class="map-road road-horizontal road-two" aria-hidden="true"></span>
+      <span class="map-road road-vertical road-three" aria-hidden="true"></span>
+      <span class="map-road road-vertical road-four" aria-hidden="true"></span>
+      <span class="map-park park-one" aria-hidden="true"></span>
+      <span class="map-park park-two" aria-hidden="true"></span>
+      <div class="map-label">PetCare · mapa esquemático</div>
+      <div class="map-locations" aria-label="Ubicaciones de PetCare">
+        @for (location of locations(); track location.id) {
+          <div class="map-location">
+            <span class="map-pin" aria-hidden="true"><span></span></span>
+            <span>{{ location.name }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</section>

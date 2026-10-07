@@ -1,0 +1,126 @@
+<section class="services-page" aria-labelledby="page-title">
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow"><span></span> CUIDADO INTEGRAL PARA SU BIENESTAR</p>
+      <h1 id="page-title">Servicios <em>veterinarios</em></h1>
+      <p>Atención profesional para cada etapa, desde la prevención cotidiana hasta los cuidados especializados.</p>
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a routerLink="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Servicios</span>
+      </nav>
+    </div>
+    <div class="hero-decoration" aria-hidden="true">
+      <span></span><span></span><span></span>
+      <svg viewBox="0 0 180 180" fill="none"><path d="M54 71c8 0 14-10 14-20 0-9-5-15-11-15-8 0-14 10-14 20 0 9 5 15 11 15Zm72 0c6 0 11-6 11-15 0-10-6-20-14-20-6 0-11 6-11 15 0 10 6 20 14 20ZM34 91c6 0 10-6 10-14 0-8-5-16-11-16-6 0-10 6-10 14 0 8 5 16 11 16Zm112 0c6 0 11-8 11-16 0-8-4-14-10-14-6 0-11 8-11 16 0 8 4 14 10 14ZM90 75c-16 0-35 23-35 39 0 11 8 17 18 17 6 0 11-3 17-3s11 3 17 3c10 0 18-6 18-17 0-16-19-39-35-39Z" fill="currentColor"/></svg>
+    </div>
+  </header>
+
+  <div class="catalogue">
+    <div class="catalogue-heading">
+      <div>
+        <p class="eyebrow"><span></span> CONOCE CÓMO PODEMOS AYUDAR</p>
+        <h2>Nuestro catálogo</h2>
+      </div>
+      @if (!isLoading() && !hasLoadError()) {
+        <p class="service-count" aria-live="polite">{{ filteredServices().length }} {{ filteredServices().length === 1 ? 'servicio' : 'servicios' }}</p>
+      }
+    </div>
+
+    @if (isLoading()) {
+      <div class="page-status" role="status" aria-live="polite">
+        <span class="loading-indicator" aria-hidden="true"></span>
+        <p>Cargando servicios...</p>
+      </div>
+    } @else if (hasLoadError()) {
+      <div class="page-status error-status" role="alert">
+        <p>No pudimos cargar los servicios. Comprueba tu conexión e inténtalo de nuevo.</p>
+        <button class="inline-action" type="button" (click)="loadServices()">Volver a intentar <span aria-hidden="true">&#8594;</span></button>
+      </div>
+    } @else {
+      <div class="filter-bar" role="group" aria-label="Filtrar servicios por categoría">
+        @for (category of categories(); track category.value) {
+          <button
+            type="button"
+            class="filter-button"
+            [class.filter-button--selected]="selectedCategory() === category.value"
+            [attr.aria-pressed]="selectedCategory() === category.value"
+            (click)="selectCategory(category.value)">
+            {{ category.label }}
+          </button>
+        }
+      </div>
+
+      @if (filteredServices().length > 0) {
+        <div class="service-grid" aria-live="polite">
+          @for (service of filteredServices(); track service.id) {
+            <article class="service-card">
+              <div class="card-heading">
+                <span class="service-icon" [attr.data-category]="service.category" aria-hidden="true">
+                  @switch (service.category) {
+                    @case ('consulta') {
+                      <svg viewBox="0 0 32 32" fill="none"><path d="M10 5v6m12-6v6M8 10h16v4a8 8 0 0 1-16 0v-4Zm8 12v2a4 4 0 0 0 8 0v-1"/><circle cx="24" cy="23" r="2"/></svg>
+                    }
+                    @case ('cirugia') {
+                      <svg viewBox="0 0 32 32" fill="none"><path d="M16 5v22M5 16h22"/><circle cx="16" cy="16" r="12"/></svg>
+                    }
+                    @case ('estetica') {
+                      <svg viewBox="0 0 32 32" fill="none"><path d="m16 4 2.4 8.1L27 15l-8.6 2.9L16 26l-2.4-8.1L5 15l8.6-2.9L16 4Z"/><path d="m25 22 .9 3.1L29 26l-3.1.9L25 30l-.9-3.1L21 26l3.1-.9L25 22Z"/></svg>
+                    }
+                    @case ('laboratorio') {
+                      <svg viewBox="0 0 32 32" fill="none"><path d="M12 5h8m-6 0v8L7 25a2 2 0 0 0 2 3h14a2 2 0 0 0 2-3l-7-12V5m-8 15h14"/></svg>
+                    }
+                    @case ('emergencia') {
+                      <svg viewBox="0 0 32 32" fill="none"><path d="M4 17h6l3-8 5 14 3-6h7"/><path d="M16 4v2m0 20v2m12-12h-2M6 16H4"/></svg>
+                    }
+                    @default {
+                      <svg viewBox="0 0 32 32" fill="none"><path d="M16 27S5 20.3 5 13a6 6 0 0 1 11-3 6 6 0 0 1 11 3c0 7.3-11 14-11 14Z"/></svg>
+                    }
+                  }
+                </span>
+                <span class="category-label">{{ categoryLabel(service.category) }}</span>
+              </div>
+              <h3>{{ service.name }}</h3>
+              <p class="service-description">{{ service.shortDescription }}</p>
+              <div class="service-details">
+                <p><span>Desde</span><strong>{{ service.priceFrom | currency:service.currency:'symbol':'1.0-0' }} {{ service.currency }}</strong></p>
+                <span class="detail-divider" aria-hidden="true"></span>
+                <p><span>Duración aproximada</span><strong>{{ durationLabel(service.durationMinutes) }}</strong></p>
+              </div>
+              <div class="card-footer">
+                <span class="availability" [class.availability--unavailable]="!service.available">
+                  <span aria-hidden="true"></span>{{ service.available ? 'Disponible' : 'No disponible' }}
+                </span>
+                <button class="inline-action" type="button" (click)="openDetails(service, detailDialog)">
+                  Más información <span aria-hidden="true">&#8594;</span>
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="page-status" role="status">
+          <p>No hay servicios en esta categoría por el momento.</p>
+        </div>
+      }
+    }
+  </div>
+</section>
+
+<dialog #detailDialog class="service-dialog" aria-labelledby="dialog-title" (close)="clearSelectedService()" (keydown.escape)="$event.preventDefault(); closeDetails(detailDialog)" (click)="closeOnBackdrop($event, detailDialog)">
+  @if (selectedService(); as service) {
+    <div class="dialog-content">
+      <div class="dialog-topline">
+        <span class="eyebrow"><span></span> DETALLE DEL SERVICIO</span>
+        <button class="dialog-close" type="button" aria-label="Cerrar detalle del servicio" (click)="closeDetails(detailDialog)">&#215;</button>
+      </div>
+      <p class="dialog-category">{{ categoryLabel(service.category) }}</p>
+      <h2 id="dialog-title">{{ service.name }}</h2>
+      <p class="dialog-description">{{ service.description }}</p>
+      <div class="dialog-meta">
+        <p><span>Precio desde</span><strong>{{ service.priceFrom | currency:service.currency:'symbol':'1.0-0' }} {{ service.currency }}</strong></p>
+        <p><span>Duración aproximada</span><strong>{{ durationLabel(service.durationMinutes) }}</strong></p>
+        <p><span>Disponibilidad</span><strong>{{ service.available ? 'Disponible' : 'No disponible' }}</strong></p>
+      </div>
+      <a class="dialog-cta" routerLink="/contacto" (click)="closeDetails(detailDialog)">Consultar o agendar <span aria-hidden="true">&#8594;</span></a>
+    </div>
+  }
+</dialog>

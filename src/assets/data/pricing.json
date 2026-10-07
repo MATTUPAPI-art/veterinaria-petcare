@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "serviceId": 1,
+    "service": "Consulta General",
+    "category": "Consulta",
+    "price": 25,
+    "currency": "USD",
+    "durationMinutes": 30,
+    "includes": ["Examen físico", "Historial clínico", "Recomendaciones preventivas"]
+  },
+  {
+    "id": 2,
+    "serviceId": 2,
+    "service": "Vacunación",
+    "category": "Consulta",
+    "price": 18,
+    "currency": "USD",
+    "durationMinutes": 20,
+    "includes": ["Evaluación previa", "Aplicación de vacuna", "Registro en cartilla"]
+  },
+  {
+    "id": 3,
+    "serviceId": 3,
+    "service": "Cirugía",
+    "category": "Cirugía",
+    "price": 180,
+    "currency": "USD",
+    "durationMinutes": 120,
+    "includes": ["Evaluación preoperatoria", "Monitoreo anestésico", "Seguimiento posoperatorio"]
+  },
+  {
+    "id": 4,
+    "serviceId": 5,
+    "service": "Peluquería y Estética",
+    "category": "Estética",
+    "price": 35,
+    "currency": "USD",
+    "durationMinutes": 90,
+    "includes": ["Baño", "Secado", "Corte según necesidad"]
+  },
+  {
+    "id": 5,
+    "serviceId": 6,
+    "service": "Laboratorio Clínico",
+    "category": "Laboratorio",
+    "price": 22,
+    "currency": "USD",
+    "durationMinutes": 30,
+    "includes": ["Toma de muestra", "Análisis clínico", "Informe de resultados"]
+  },
+  {
+    "id": 6,
+    "serviceId": 8,
+    "service": "Emergencias 24/7",
+    "category": "Emergencia",
+    "price": 55,
+    "currency": "USD",
+    "durationMinutes": 45,
+    "includes": ["Valoración urgente", "Estabilización inicial", "Plan de atención"]
+  }
+]

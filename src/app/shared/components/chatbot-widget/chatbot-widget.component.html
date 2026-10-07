@@ -1,0 +1,82 @@
+<div class="chat-widget">
+  @if (isOpen()) {
+    <section class="chat-panel" aria-labelledby="chat-title" aria-describedby="chat-description">
+      <header class="chat-header">
+        <span class="assistant-avatar" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M10 13c1.5 0 2.5-1.8 2.5-3.7 0-1.6-.8-2.8-2-2.8C9 6.5 8 8.3 8 10.2c0 1.6.8 2.8 2 2.8Zm12 0c1.2 0 2-1.2 2-2.8 0-1.9-1-3.7-2.5-3.7-1.2 0-2 1.2-2 2.8 0 1.9 1 3.7 2.5 3.7ZM6 17c1.1 0 1.8-1.1 1.8-2.4 0-1.5-.8-2.8-2-2.8-1.1 0-1.8 1.1-1.8 2.4 0 1.5.8 2.8 2 2.8Zm20 0c1.2 0 2-1.3 2-2.8 0-1.3-.7-2.4-1.8-2.4-1.2 0-2 1.3-2 2.8 0 1.3.7 2.4 1.8 2.4ZM16 14.5c-2.9 0-6.4 4.1-6.4 7.1 0 1.9 1.3 3 3.2 3 1.1 0 2.1-.5 3.2-.5s2.1.5 3.2.5c1.9 0 3.2-1.1 3.2-3 0-3-3.5-7.1-6.4-7.1Z" fill="currentColor"/></svg>
+        </span>
+        <div class="header-copy">
+          <h2 id="chat-title">PetCare Asistente</h2>
+          <p id="chat-description"><span aria-hidden="true"></span> Asistente virtual</p>
+        </div>
+        <button class="close-button" type="button" aria-label="Cerrar chat" (click)="closeChat()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+
+      <div class="conversation" role="log" aria-label="Historial de conversación" aria-live="polite" aria-relevant="additions text">
+        @for (message of messages(); track message.id) {
+          <div class="message-row" [class.message-row--user]="message.sender === 'user'">
+            @if (message.sender === 'assistant') {
+              <span class="message-avatar" aria-hidden="true">P</span>
+            }
+            <div class="message-bubble" [class.message-bubble--user]="message.sender === 'user'">
+              <p>{{ message.text }}</p>
+              @if (message.sender === 'assistant' && message.route) {
+                <a class="message-link" [routerLink]="message.route" (click)="closeChat()">
+                  @switch (message.route) {
+                    @case ('/servicios') { Ver servicios }
+                    @case ('/ubicaciones') { Ver ubicaciones }
+                    @case ('/precios') { Ver precios }
+                    @case ('/contacto') { Ir a contacto }
+                    @default { Ver más }
+                  }
+                  <span aria-hidden="true">&#8594;</span>
+                </a>
+              }
+            </div>
+          </div>
+        }
+
+        @if (isTyping()) {
+          <div class="message-row" role="status" aria-label="El asistente está escribiendo">
+            <span class="message-avatar" aria-hidden="true">P</span>
+            <div class="typing-bubble"><span></span><span></span><span></span><span class="visually-hidden">Escribiendo...</span></div>
+          </div>
+        }
+      </div>
+
+      @if (!isTyping()) {
+        <div class="quick-replies" aria-label="Opciones rápidas">
+          @for (reply of quickReplies; track reply.id) {
+            <button type="button" class="quick-reply" (click)="sendQuickReply(reply)">{{ reply.label }}</button>
+          }
+        </div>
+      }
+
+      <form class="composer" (submit)="handleSubmit($event)" aria-label="Enviar mensaje al asistente">
+        <label class="visually-hidden" for="chat-message">Escribe tu mensaje</label>
+        <input
+          #messageInput
+          id="chat-message"
+          type="text"
+          autocomplete="off"
+          maxlength="300"
+          placeholder="Escribe tu mensaje..."
+          [value]="draft()"
+          [disabled]="isTyping()"
+          (input)="updateDraft($any($event.target).value)"
+          aria-label="Escribe tu mensaje">
+        <button type="submit" aria-label="Enviar mensaje" [disabled]="!draft().trim() || isTyping()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8-3-8Zm3 8h14"/></svg>
+        </button>
+      </form>
+      <p class="chat-disclaimer">Asistente demostrativo · No ofrece orientación médica</p>
+    </section>
+  } @else {
+    <button class="launcher" type="button" aria-label="Abrir chat con PetCare Asistente" (click)="openChat()">
+      <span class="launcher-pulse" aria-hidden="true"></span>
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 6.5h18A2.5 2.5 0 0 1 27.5 9v11a2.5 2.5 0 0 1-2.5 2.5h-8l-6.5 5v-5H7A2.5 2.5 0 0 1 4.5 20V9A2.5 2.5 0 0 1 7 6.5Z"/><circle cx="11" cy="14.5" r="1"/><circle cx="16" cy="14.5" r="1"/><circle cx="21" cy="14.5" r="1"/></svg>
+    </button>
+  }
+</div>

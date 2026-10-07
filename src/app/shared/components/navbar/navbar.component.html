@@ -1,0 +1,43 @@
+<header class="site-header" [class.site-header--scrolled]="isScrolled()">
+  <div class="header-inner">
+    <a class="brand" routerLink="/" aria-label="PetCare, ir al inicio" (click)="closeMenu()">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none">
+          <path d="M12.1 17.1c2.1 0 3.7-2.5 3.7-5.1 0-2.2-1.2-3.8-2.9-3.8-2.1 0-3.7 2.5-3.7 5.1 0 2.2 1.2 3.8 2.9 3.8Zm15.8 0c1.7 0 2.9-1.6 2.9-3.8 0-2.6-1.6-5.1-3.7-5.1-1.7 0-2.9 1.6-2.9 3.8 0 2.6 1.6 5.1 3.7 5.1Zm-21.1 4.4c1.5 0 2.6-1.5 2.6-3.5 0-2.1-1.2-4.1-2.9-4.1-1.5 0-2.6 1.5-2.6 3.5 0 2.1 1.2 4.1 2.9 4.1Zm26.4 0c1.7 0 2.9-2 2.9-4.1 0-2-1.1-3.5-2.6-3.5-1.7 0-2.9 2-2.9 4.1 0 2 1.1 3.5 2.6 3.5ZM20 18.1c-4.1 0-9 5.9-9 10.1 0 2.7 1.9 4.3 4.5 4.3 1.6 0 2.9-.7 4.5-.7s2.9.7 4.5.7c2.6 0 4.5-1.6 4.5-4.3 0-4.2-4.9-10.1-9-10.1Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">Pet<span>Care</span></span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-controls="primary-navigation"
+      [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="menuOpen() ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
+      (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="primary-navigation" class="navigation" [class.navigation--open]="menuOpen()" aria-label="Navegación principal">
+      <div class="navigation-links">
+        @for (link of links; track link.route) {
+          <a
+            [routerLink]="link.route"
+            routerLinkActive="navigation-link--active"
+            [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+            class="navigation-link"
+            (click)="closeMenu()">
+            {{ link.label }}
+          </a>
+        }
+      </div>
+      <a class="appointment-button" routerLink="/contacto" (click)="closeMenu()">
+        Agendar Cita
+        <span aria-hidden="true">&#8599;</span>
+      </a>
+    </nav>
+  </div>
+</header>

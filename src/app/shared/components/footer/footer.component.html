@@ -1,0 +1,66 @@
+<footer class="site-footer">
+  <div class="footer-main">
+    <section class="footer-about" aria-labelledby="footer-brand">
+      <a class="brand" routerLink="/" aria-label="PetCare, ir al inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M12.1 17.1c2.1 0 3.7-2.5 3.7-5.1 0-2.2-1.2-3.8-2.9-3.8-2.1 0-3.7 2.5-3.7 5.1 0 2.2 1.2 3.8 2.9 3.8Zm15.8 0c1.7 0 2.9-1.6 2.9-3.8 0-2.6-1.6-5.1-3.7-5.1-1.7 0-2.9 1.6-2.9 3.8 0 2.6 1.6 5.1 3.7 5.1Zm-21.1 4.4c1.5 0 2.6-1.5 2.6-3.5 0-2.1-1.2-4.1-2.9-4.1-1.5 0-2.6 1.5-2.6 3.5 0 2.1 1.2 4.1 2.9 4.1Zm26.4 0c1.7 0 2.9-2 2.9-4.1 0-2-1.1-3.5-2.6-3.5-1.7 0-2.9 2-2.9 4.1 0 2 1.1 3.5 2.6 3.5ZM20 18.1c-4.1 0-9 5.9-9 10.1 0 2.7 1.9 4.3 4.5 4.3 1.6 0 2.9-.7 4.5-.7s2.9.7 4.5.7c2.6 0 4.5-1.6 4.5-4.3 0-4.2-4.9-10.1-9-10.1Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-name" id="footer-brand">Pet<span>Care</span></span>
+      </a>
+      <p>Cuidamos su salud con ciencia, cariño y una atención cercana en cada etapa de su vida.</p>
+      <div class="social-links" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="social-dot" cx="17.5" cy="6.5" r=".8"/></svg>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v2H6v4h3v5h4v-5h3l1-4h-4V9c0-.7.3-1 1-1Z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="4"/><path class="social-fill" d="m10 9 5 3-5 3V9Z"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <nav class="footer-column" aria-labelledby="footer-services-title">
+      <h2 id="footer-services-title">Servicios</h2>
+      @for (link of serviceLinks; track link.label) {
+        <a [routerLink]="link.route">{{ link.label }}</a>
+      }
+    </nav>
+
+    <nav class="footer-column" aria-labelledby="footer-company-title">
+      <h2 id="footer-company-title">Empresa</h2>
+      @for (link of companyLinks; track link.route + link.label) {
+        <a [routerLink]="link.route">{{ link.label }}</a>
+      }
+      <a routerLink="/contacto">Contacto</a>
+    </nav>
+
+    <section class="footer-column footer-contact" aria-labelledby="footer-contact-title">
+      <h2 id="footer-contact-title">Contacto</h2>
+      <a href="tel:+525555550100">+52 55 5555 0100</a>
+      <a href="mailto:hola@petcare.example">hola&#64;petcare.example</a>
+      <p>Atención de urgencias<br>todos los días, 24 horas</p>
+    </section>
+
+    <section class="newsletter" aria-labelledby="newsletter-title">
+      <p class="eyebrow">BUENAS NOTICIAS, BUEN CUIDADO</p>
+      <h2 id="newsletter-title">Un poquito de bienestar en tu correo.</h2>
+      <div class="newsletter-control">
+        <label class="visually-hidden" for="newsletter-email">Correo electrónico</label>
+        <input id="newsletter-email" type="email" placeholder="Tu correo electrónico" autocomplete="email">
+        <button type="button" aria-label="Suscribirme al boletín">&#8594;</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© {{ currentYear }} PetCare. Cuidar también es querer.</p>
+    <nav class="policy-links" aria-label="Políticas y condiciones">
+      <a href="mailto:privacidad&#64;petcare.example?subject=Pol%C3%ADtica%20de%20privacidad">Política de privacidad</a>
+      <a href="mailto:legal&#64;petcare.example?subject=T%C3%A9rminos%20y%20condiciones">Términos y condiciones</a>
+    </nav>
+  </div>
+</footer>

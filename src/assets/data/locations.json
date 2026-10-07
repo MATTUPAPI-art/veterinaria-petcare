@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "PetCare Centro",
+    "address": "Av. Principal 125, Colonia Centro",
+    "city": "Ciudad de México",
+    "phone": "+52 55 5555 0101",
+    "email": "centro@petcare.example",
+    "schedule": [
+      { "days": "Lunes a viernes", "hours": "08:00 - 20:00" },
+      { "days": "Sábado", "hours": "09:00 - 18:00" },
+      { "days": "Domingo", "hours": "10:00 - 16:00" }
+    ],
+    "image": "assets/images/locations/centro.jpg",
+    "mapUrl": "https://maps.google.com/?q=PetCare+Centro+Ciudad+de+Mexico",
+    "coordinates": { "lat": 19.4326, "lng": -99.1332 }
+  },
+  {
+    "id": 2,
+    "name": "PetCare Norte",
+    "address": "Calle del Bosque 48, Colonia Industrial",
+    "city": "Ciudad de México",
+    "phone": "+52 55 5555 0102",
+    "email": "norte@petcare.example",
+    "schedule": [
+      { "days": "Lunes a viernes", "hours": "08:00 - 20:00" },
+      { "days": "Sábado", "hours": "09:00 - 18:00" },
+      { "days": "Domingo", "hours": "10:00 - 16:00" }
+    ],
+    "image": "assets/images/locations/norte.jpg",
+    "mapUrl": "https://maps.google.com/?q=PetCare+Norte+Ciudad+de+Mexico",
+    "coordinates": { "lat": 19.5045, "lng": -99.1467 }
+  },
+  {
+    "id": 3,
+    "name": "PetCare Sur",
+    "address": "Av. de la Salud 310, Colonia Jardines",
+    "city": "Ciudad de México",
+    "phone": "+52 55 5555 0103",
+    "email": "sur@petcare.example",
+    "schedule": [
+      { "days": "Lunes a viernes", "hours": "08:00 - 20:00" },
+      { "days": "Sábado", "hours": "09:00 - 18:00" },
+      { "days": "Domingo", "hours": "10:00 - 16:00" }
+    ],
+    "image": "assets/images/locations/sur.jpg",
+    "mapUrl": "https://maps.google.com/?q=PetCare+Sur+Ciudad+de+Mexico",
+    "coordinates": { "lat": 19.3006, "lng": -99.1629 }
+  }
+]

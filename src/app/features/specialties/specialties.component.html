@@ -1,0 +1,118 @@
+<section class="specialties-page" aria-labelledby="page-title">
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow"><span></span> CONOCIMIENTO PARA CUIDAR MEJOR</p>
+      <h1 id="page-title">Especialidades</h1>
+      <p>Un equipo con experiencia en distintas áreas para acompañar la salud de tu mascota de forma integral.</p>
+      <nav class="breadcrumbs" aria-label="Ruta de navegación">
+        <a routerLink="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Especialidades</span>
+      </nav>
+    </div>
+    <div class="hero-decoration" aria-hidden="true">
+      <span></span><span></span><span></span>
+      <svg viewBox="0 0 180 180" fill="none"><path d="M54 71c8 0 14-10 14-20 0-9-5-15-11-15-8 0-14 10-14 20 0 9 5 15 11 15Zm72 0c6 0 11-6 11-15 0-10-6-20-14-20-6 0-11 6-11 15 0 10 6 20 14 20ZM34 91c6 0 10-6 10-14 0-8-5-16-11-16-6 0-10 6-10 14 0 8 5 16 11 16Zm112 0c6 0 11-8 11-16 0-8-4-14-10-14-6 0-11 8-11 16 0 8 4 14 10 14ZM90 75c-16 0-35 23-35 39 0 11 8 17 18 17 6 0 11-3 17-3s11 3 17 3c10 0 18-6 18-17 0-16-19-39-35-39Z" fill="currentColor"/></svg>
+    </div>
+  </header>
+
+  <div class="specialties-content">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span></span> ACOMPAÑAMIENTO ESPECIALIZADO</p>
+        <h2>Un cuidado para cada necesidad</h2>
+      </div>
+      <p>Explora nuestras áreas de atención y conoce a los profesionales que pueden orientarte.</p>
+    </div>
+
+    @if (isLoading()) {
+      <div class="page-status" role="status" aria-live="polite">
+        <span class="loading-indicator" aria-hidden="true"></span>
+        <p>Cargando especialidades y equipo veterinario...</p>
+      </div>
+    } @else if (hasLoadError()) {
+      <div class="page-status error-status" role="alert">
+        <p>No pudimos cargar la información. Comprueba tu conexión e inténtalo de nuevo.</p>
+        <button class="inline-action" type="button" (click)="loadData()">Volver a intentar <span aria-hidden="true">&#8594;</span></button>
+      </div>
+    } @else if (specialtiesWithVeterinarians().length > 0) {
+      <div class="specialty-grid">
+        @for (specialty of specialtiesWithVeterinarians(); track specialty.id) {
+          <article class="specialty-card">
+            <header class="specialty-heading">
+              <span class="specialty-icon" aria-hidden="true">
+                @switch (specialty.icon) {
+                  @case ('medical_services') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M6 8h20v19H6zM12 4h8v4h-8z"/><path d="M16 12v10m-5-5h10"/></svg>
+                  }
+                  @case ('healing') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M16 4v24M4 16h24"/><circle cx="16" cy="16" r="12"/></svg>
+                  }
+                  @case ('dermatology') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M6 8c6-4 14-4 20 0v16c-6 4-14 4-20 0V8Z"/><circle cx="12" cy="13" r="1.5"/><circle cx="20" cy="18" r="2"/><circle cx="12" cy="21" r="1"/></svg>
+                  }
+                  @case ('visibility') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M3 16s5-8 13-8 13 8 13 8-5 8-13 8S3 16 3 16Z"/><circle cx="16" cy="16" r="4"/></svg>
+                  }
+                  @case ('cardiology') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M16 27S4 20 4 12a6 6 0 0 1 11-3 6 6 0 0 1 13 3c0 8-12 15-12 15Z"/><path d="M8 16h5l2-4 3 8 2-4h4"/></svg>
+                  }
+                  @case ('biotech') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M10 5c12 5 12 17 0 22m12-22C10 10 10 22 22 27M11 9h10m-13 7h16m-13 7h10"/></svg>
+                  }
+                  @case ('restaurant') {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M16 27S5 21 7 12c1-5 6-8 9-8 1 7-1 11-5 14m5 9c0-9 4-16 11-19 2 9-2 16-11 19Z"/><path d="M8 28h17"/></svg>
+                  }
+                  @default {
+                    <svg viewBox="0 0 32 32" fill="none"><path d="M10 14c1.5 0 2.5-1.8 2.5-3.7 0-1.6-.8-2.8-2-2.8-1.5 0-2.5 1.8-2.5 3.7 0 1.6.8 2.8 2 2.8Zm12 0c1.2 0 2-1.2 2-2.8 0-1.9-1-3.7-2.5-3.7-1.2 0-2 1.2-2 2.8 0 1.9 1 3.7 2.5 3.7ZM6 18c1.1 0 1.8-1.1 1.8-2.4 0-1.5-.8-2.8-2-2.8-1.1 0-1.8 1.1-1.8 2.4 0 1.5.8 2.8 2 2.8Zm20 0c1.2 0 2-1.3 2-2.8 0-1.3-.7-2.4-1.8-2.4-1.2 0-2 1.3-2 2.8 0 1.3.7 2.4 1.8 2.4ZM16 15.5c-2.9 0-6.4 4.1-6.4 7.1 0 1.9 1.3 3 3.2 3 1.1 0 2.1-.5 3.2-.5s2.1.5 3.2.5c1.9 0 3.2-1.1 3.2-3 0-3-3.5-7.1-6.4-7.1Z" fill="currentColor"/></svg>
+                  }
+                }
+              </span>
+              <span class="specialty-number" aria-hidden="true">{{ specialty.id < 10 ? '0' + specialty.id : specialty.id }}</span>
+            </header>
+            <h3>{{ specialty.name }}</h3>
+            <p class="specialty-description">{{ specialty.description }}</p>
+
+            <div class="team-list" aria-label="Profesionales de esta especialidad">
+              @if (specialty.veterinarians.length > 0) {
+                @for (veterinarian of specialty.veterinarians; track veterinarian.id) {
+                  <article class="veterinarian">
+                    <div class="portrait">
+                      @if (availablePhotoIds().has(veterinarian.id) && !failedPhotoIds().has(veterinarian.id)) {
+                        <img
+                          [src]="veterinarian.photo"
+                          [alt]="'Retrato de ' + veterinarian.name"
+                          loading="lazy"
+                          (error)="markPhotoAsFailed(veterinarian.id)">
+                      } @else {
+                        <span class="portrait-placeholder" aria-hidden="true">{{ initials(veterinarian.name) }}</span>
+                      }
+                    </div>
+                    <div class="veterinarian-info">
+                      <h4>{{ veterinarian.name }}</h4>
+                      <p class="veterinarian-specialty">{{ veterinarian.specialty }}</p>
+                      <p class="credentials">{{ veterinarian.credentials }}</p>
+                      <p class="experience">{{ veterinarian.experienceYears }} años de experiencia</p>
+                    </div>
+                  </article>
+                }
+              } @else {
+                <p class="team-empty">Nuestro equipo puede orientarte sobre esta área.</p>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="page-status" role="status"><p>Pronto encontrarás aquí nuestras especialidades.</p></div>
+    }
+  </div>
+</section>
+
+<section class="specialty-cta" aria-labelledby="specialty-cta-title">
+  <div class="cta-mark" aria-hidden="true">&#10022;</div>
+  <div class="cta-copy">
+    <p class="eyebrow">TE AYUDAMOS A ELEGIR</p>
+    <h2 id="specialty-cta-title">¿Necesitas orientación para elegir una especialidad?</h2>
+    <p>Cuéntanos qué le sucede a tu mascota y te ayudaremos a encontrar el siguiente paso.</p>
+  </div>
+  <a class="cta-button" routerLink="/contacto">Contactar al equipo <span aria-hidden="true">&#8594;</span></a>
+</section>

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Medicina General",
+    "description": "Atención preventiva, diagnóstico y seguimiento de la salud integral.",
+    "icon": "medical_services",
+    "veterinarianIds": [1, 5]
+  },
+  {
+    "id": 2,
+    "name": "Cirugía",
+    "description": "Procedimientos quirúrgicos y cuidados antes y después de la intervención.",
+    "icon": "healing",
+    "veterinarianIds": [2]
+  },
+  {
+    "id": 3,
+    "name": "Dermatología",
+    "description": "Evaluación y tratamiento de enfermedades de la piel, pelo y oídos.",
+    "icon": "dermatology",
+    "veterinarianIds": [3]
+  },
+  {
+    "id": 4,
+    "name": "Oftalmología",
+    "description": "Prevención, diagnóstico y tratamiento de afecciones oculares.",
+    "icon": "visibility",
+    "veterinarianIds": [4]
+  },
+  {
+    "id": 5,
+    "name": "Cardiología",
+    "description": "Diagnóstico y seguimiento de la salud cardiovascular de perros y gatos.",
+    "icon": "cardiology",
+    "veterinarianIds": [5]
+  },
+  {
+    "id": 6,
+    "name": "Oncología",
+    "description": "Acompañamiento diagnóstico y terapéutico para pacientes con cáncer.",
+    "icon": "biotech",
+    "veterinarianIds": [2]
+  },
+  {
+    "id": 7,
+    "name": "Nutrición",
+    "description": "Planes de alimentación adaptados a la etapa y condición de cada mascota.",
+    "icon": "restaurant",
+    "veterinarianIds": [1, 3]
+  },
+  {
+    "id": 8,
+    "name": "Comportamiento",
+    "description": "Orientación para comprender y mejorar el bienestar conductual.",
+    "icon": "pets",
+    "veterinarianIds": [4]
+  }
+]
